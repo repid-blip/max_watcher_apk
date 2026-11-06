@@ -102,8 +102,8 @@ class MaxWatcherService : Service() {
                 ?.trim('"') ?: "download_${System.currentTimeMillis()}"
             Log.i(TAG, "DownloadListener: $url → $name (mime=$mimetype)")
             try {
-                android.app.DownloadManager(this@MaxWatcherService).enqueue(
-                    android.app.DownloadManager.Request(android.net.Uri.parse(url))
+                val dm = getSystemService(Context.DOWNLOAD_SERVICE) as android.app.DownloadManager
+                dm.enqueue(android.app.DownloadManager.Request(android.net.Uri.parse(url))
                         .setTitle(name)
                         .setNotificationVisibility(
                             android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
